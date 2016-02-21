@@ -11,25 +11,34 @@ import java.io.IOException;
 public class Calculator {
 
 	public int calcSum(String path) throws IOException {
-		return fileReadTemplate(path, new BufferedReaderCallback() {
+		return lineReadTemplate(path, new LineCallback() {
 			@Override
-			public Integer doSomethingWithReader(BufferedReader br) throws IOException {
-				Integer sum = 0;
-				String line = null;
-				while ((line = br.readLine()) != null) {
-					sum += Integer.valueOf(line);
-				}
-				return sum;
+			public Integer doSomethingWithLine(String line, Integer value) {
+				return value + Integer.valueOf(line);
 			}
-		});
+		}, 0);
 	}
 
-	public Integer fileReadTemplate(String filepath, BufferedReaderCallback callback) throws IOException {
+	public Integer calcMultiply(String filePath) throws IOException {
+		return lineReadTemplate(filePath, new LineCallback() {
+			@Override
+			public Integer doSomethingWithLine(String line, Integer value) {
+				return value * Integer.valueOf(line);
+
+			}
+		}, 1);
+	}
+
+	public ＜Ｔ＞　Ｔ lineReadTemplate(String filepath, LineCallback＜Ｔ＞ callback, Ｔ initVal) throws IOException{
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(filepath));
-			int ret = callback.doSomethingWithReader(br);
-			return ret;
+			Ｔ res = initVal;
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				res = callback.doSomethingWithLine(line, res);
+			}
+			return res;
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			throw e;
@@ -43,4 +52,5 @@ public class Calculator {
 			}
 		}
 	}
+
 }
