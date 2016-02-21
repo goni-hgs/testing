@@ -1,5 +1,6 @@
 package toby.numbers;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,10 +13,19 @@ import static org.hamcrest.core.Is.is;
  * @Date   : 2/18/16
  */
 public class CalcSumTest {
+	private Calculator calculator;
+	private String numFilePath;
+
+	@Before
+	public void setUp() {
+		this.calculator = new Calculator();
+		this.numFilePath = getClass().getResource("numbers.txt").getPath();
+	}
 	@Test
 	public void sumOfNumbers() throws IOException {
-		Calculator calculator = new Calculator();
-		int sum = calculator.calcSum(getClass().getResource("numbers.txt").getPath());
-		assertThat(sum, is(10));
+		assertThat(calculator.calcSum(numFilePath), is(10));
 	}
+
+
+
 }
