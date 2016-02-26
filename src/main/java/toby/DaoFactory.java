@@ -13,9 +13,10 @@ import javax.sql.DataSource;
 @Configuration
 public class DaoFactory {
 	@Bean
-	public UserDao userDao() {
-		UserDao userDao = new UserDao();
+	public UserDaoJdbc userDao() {
+		UserDaoJdbc userDao = new UserDaoJdbc();
 		userDao.setDataSource(dataSource());
+
 		return userDao;
 	}
 
@@ -29,6 +30,14 @@ public class DaoFactory {
 		dataSource.setPassword("book");
 
 		return dataSource;
+	}
+
+	@Bean
+	public UserService userService() {
+		UserService userService = new UserService();
+		userService.setUserDao(userDao());
+
+		return userService;
 	}
 }
 

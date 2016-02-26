@@ -21,11 +21,19 @@ public class CalcSumTest {
 		this.calculator = new Calculator();
 		this.numFilePath = getClass().getResource("numbers.txt").getPath();
 	}
+
 	@Test
 	public void sumOfNumbers() throws IOException {
 		assertThat(calculator.calcSum(numFilePath), is(10));
 	}
 
+	@Test
+	public void multiplyOfNumbers() throws IOException {
+		assertThat(calculator.calcMultiply(numFilePath), is(24));
+	}
 
-
+	@Test
+	public void concatenateStrings() throws IOException {
+		assertThat(calculator.concatenate(this.numFilePath), is("1234"));
+	}
 }
